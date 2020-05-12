@@ -1,0 +1,481 @@
+library(dplyr)
+library(ggplot2)
+library(readxl)
+library(stargazer)
+
+setwd("/Users/yuliabezginova/Library/Mobile Documents/com~apple~CloudDocs/Documents/phd/university-reputation/data")
+
+sent_fund <- read_excel("sent_funding_v2.xlsx")
+
+s <- sent_fund %>%
+  mutate_if(is.numeric, round, digits = 2)
+print(s)
+
+# [1] "Уральский федеральный университет имени первого Президента России Б.Н. Ельцина (2013)"
+elcin <- s %>%
+  filter(name == "Уральский федеральный университет имени первого Президента России Б.Н. Ельцина (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = elcin, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 4) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = elcin$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Уральский федеральный университет им. Б.Н. Ельцина (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(elcin$year))
+ggsave("Уральский федеральный университет имени первого Президента России Б.Н. Ельцина (2013).jpeg")
+
+# [2] "Новосибирский национальный исследовательский государственный университет (2013)"
+novosib <- s %>%
+  filter(name == "Новосибирский национальный исследовательский государственный университет (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = novosib, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 4) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = novosib$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Новосибирский нац. исследовательский государственный университет (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(novosib$year))
+ggsave("Новосибирский национальный исследовательский государственный университет (2013).jpeg")
+
+# [3] "Национальный исследовательский технологический университет НИТУ МИСиС (2013)"
+misis <- s %>%
+  filter(name == "Национальный исследовательский технологический университет НИТУ МИСиС (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = misis, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 4) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = misis$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("НИТУ МИСиС (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(misis$year))
+ggsave("НИТУ МИСиС (2013).jpeg")
+
+# [4] "Национальный исследовательский Томский политехнический университет (2013)"
+tomsk_pol <- s %>%
+  filter(name == "Национальный исследовательский Томский политехнический университет (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = tomsk_pol, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 4) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = tomsk_pol$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Томский политехнический университет (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(tomsk_pol$year))
+ggsave("Томский политехнический университет (2013).jpeg")
+
+# [5] "Национальный исследовательский Томский государственный университет (2013)"
+tomsk_gos <- s %>%
+  filter(name == "Национальный исследовательский Томский государственный университет (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = tomsk_gos, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 4) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = tomsk_gos$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Томский государственный университет (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(tomsk_gos$year))
+ggsave("Томский государственный университет (2013).jpeg")
+
+# [6] "Первый МГМУ имени И. М. Сеченова (2015)"
+sechenov <- s %>%
+  filter(name == "Первый МГМУ имени И. М. Сеченова (2015)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = sechenov, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 4) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = sechenov$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Первый МГМУ имени И. М. Сеченова (2015)") +
+  scale_x_continuous(name="Год", breaks = unique(sechenov$year))
+ggsave("Первый МГМУ имени И. М. Сеченова (2015).jpeg")
+
+
+# [7] "Казанский федеральный университет (2013)"
+kazan <- s %>%
+  filter(name == "Казанский федеральный университет (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = kazan, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 4) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = kazan$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Казанский федеральный университет (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(kazan$year))
+ggsave("Казанский федеральный университет (2013).jpeg")
+
+
+# [8] "Санкт-Петербургский государственный электротехнический университет им В И Ульянова (Ленина) (СПбГЭТУ «ЛЭТИ») (2013)"
+leti <- s %>%
+  filter(name == "Санкт-Петербургский государственный электротехнический университет им В И Ульянова (Ленина) (СПбГЭТУ «ЛЭТИ») (2013)") 
+# leti = s[s$name=="Санкт-Петербургский государственный электротехнический университет им В И Ульянова (Ленина) (СПбГЭТУ «ЛЭТИ») (2013)",]
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = leti, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 4) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b), inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b), inherit.aes = FALSE, label = leti$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Санкт-Петербургский гос. электротехнический университет им. В. И. Ульянова (Ленина) (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(leti$year))
+ggsave("СПбГЭТУ «ЛЭТИ» (2013).jpeg")
+
+
+# [9] "Санкт-Петербургский политехнический университет Петра Великого (2013)"
+politech <- s %>%
+  filter(name == "Санкт-Петербургский политехнический университет Петра Великого (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = politech, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 8.5, color = "midnightblue", size = 4) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = politech$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Санкт-Петербургский политехнический университет Петра Великого (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(politech$year))
+ggsave("Санкт-Петербургский политехнический университет Петра Великого (2013).jpeg")
+
+
+# [10] "Университет ИТМО (2013)"    
+itmo <- s %>%
+  filter(name == "Университет ИТМО (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = elcin, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 8, color = "midnightblue", size = 4) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = itmo$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Университет ИТМО (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(itmo$year))
+ggsave("Университет ИТМО (2013).jpeg")
+
+
+# [11] "Дальневосточный федеральный университет (2013)"
+dv <- s %>%
+  filter(name == "Дальневосточный федеральный университет (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = dv, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 4) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = dv$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Дальневосточный федеральный университет (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(dv$year))
+ggsave("Дальневосточный федеральный университет (2013).jpeg")
+
+
+# [12] "Балтийский федеральный университет имени Иммануила Канта (2015)"
+baltic <- s %>%
+  filter(name == "Балтийский федеральный университет имени Иммануила Канта (2015)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = baltic, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 4) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = baltic$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Балтийский федеральный университет имени Иммануила Канта (2015)") +
+  scale_x_continuous(name="Год", breaks = unique(baltic$year))
+ggsave("Балтийский федеральный университет имени Иммануила Канта (2015).jpeg")
+
+# [13] "Национальный исследовательский ядерный университет МИФИ (2013)"
+mifi <- s %>%
+  filter(name == "Национальный исследовательский ядерный университет МИФИ (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = mifi, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 3.5) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = mifi$sent, vjust = 2.5, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Нац. исследовательский ядерный университет МИФИ (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(mifi$year))
+ggsave("Национальный исследовательский ядерный университет МИФИ (2013).jpeg")
+
+# [14] "Российский университет дружбы народов (2015)"
+rudn <- s %>%
+  filter(name == "Российский университет дружбы народов (2015)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = rudn, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 3.5) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = rudn$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Российский университет дружбы народов (2015)") +
+  scale_x_continuous(name="Год", breaks = unique(rudn$year))
+ggsave("Российский университет дружбы народов (2015).jpeg")
+
+# [15] "Южно-Уральский государственный университет (2015)"
+yuzh <- s %>%
+  filter(name == "Южно-Уральский государственный университет (2015)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = yuzh, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 3.5) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = yuzh$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Южно-Уральский государственный университет (2015)") +
+  scale_x_continuous(name="Год", breaks = unique(yuzh$year))
+ggsave("Южно-Уральский государственный университет (2015).jpeg")
+
+# [16] "Сибирский федеральный университет (2015)"
+sfu <- s %>%
+  filter(name == "Сибирский федеральный университет (2015)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = sfu, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 4) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = sfu$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Сибирский федеральный университет (2015)") +
+  scale_x_continuous(name="Год", breaks = unique(sfu$year))
+ggsave("Сибирский федеральный университет (2015).jpeg")
+
+# [17] "Нижегородский Государственный университет им. Н И Лобачевского (2013)"
+nizh <- s %>%
+  filter(name == "Нижегородский Государственный университет им. Н И Лобачевского (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = nizh, aes(x = year, y = funding5100)) + 
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 3.5) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = nizh$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Нижегородский государственный университет им. Лобачевского (2013)")+
+  scale_x_continuous(name="Год", breaks = unique(nizh$year))
+ggsave("Нижегородский Государственный университет им. Н И Лобачевского (2013).jpeg")
+
+# [18] "Национальный исследовательский университет Московский физико-технический институт (2013)"
+mfti <- s %>%
+  filter(name == "Национальный исследовательский университет Московский физико-технический институт (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = mfti, aes(x = year, y = funding5100)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 11, color = "midnightblue", size = 3.5) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = mfti$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Московский физико-технический институт (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(mfti$year))
+ggsave("Московский физико-технический институт (2013).jpeg")
+
+# [19] "Самарский национальный исследовательский университет имени академика С П Королёва (2013)"
+samara <- s %>%
+  filter(name == "Самарский национальный исследовательский университет имени академика С П Королёва (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = samara, aes(x = year, y = funding5100)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 4, color = "midnightblue", size = 3.5) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = samara$sent, vjust = 1.9, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Самарский нац. исследовательский университет им. Королёва (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(samara$year))
+ggsave("Самарский национальный исследовательский университет имени академика С П Королёва (2013).jpeg")
+
+# [20] "Национальный исследовательский университет Высшая школа экономики (2013)"
+hse <- s %>%
+  filter(name == "Национальный исследовательский университет Высшая школа экономики (2013)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = hse, aes(x = year, y = funding5100)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 3.5, color = "midnightblue", size = 3.5) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = hse$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("НИУ Высшая школа экономики (2013)") +
+  scale_x_continuous(name="Год", breaks = unique(hse$year))
+ggsave("Высшая школа экономики (2013).jpeg")
+
+# [21] "Тюменский государственный университет (2015)"
+tumen <- s %>%
+  filter(name == "Тюменский государственный университет (2015)") 
+
+ylim.prim <- c(0, 900)   # in this example, precipitation
+ylim.sec <- c(0,1)
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- b*(ylim.prim[1] - ylim.sec[1])
+
+ggplot(data = tumen, aes(x = year, y = funding5100)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_text(aes(label = funding5100), vjust = 2, color = "midnightblue", size = 3.5) +
+  geom_line(aes(y = a + sent*b), color = "royalblue4", size = 1) +
+  geom_point(aes(x=year, y = a + sent*b),inherit.aes = FALSE , color = "midnightblue") +
+  geom_text(aes(x=year, y = a + sent*b),inherit.aes = FALSE, label = tumen$sent, vjust = 2, size = 3.5) +
+  scale_y_continuous("Субсидия из федерального бюджета, тыс. руб", sec.axis = sec_axis(~ (. - a)/b, name = "Показатель sentiment = [-1, 1]")) +
+  xlab("Год") +
+  ggtitle("Тюменский государственный университет (2015)") +
+  scale_x_continuous(name="Год", breaks = unique(tumen$year))
+ggsave("Тюменский государственный университет (2015).jpeg")
